@@ -9,20 +9,26 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.*;
 
 public class DatabaseInitializer
     extends SQLiteOpenHelper
 {
-    private static String DB_PATH = "/data/data/net.terang.dunia.gospels.in.unison/databases/";
-    private static String DB_NAME = "injil-tuhan-yesus.db";
-
     private SQLiteDatabase database;
     private final Context context;
+    private final String DB_PATH, DB_NAME;
 
     public DatabaseInitializer(Context context)
     {
-        super(context, DB_NAME, null, 1);
+        super(context, context.getResources().getString(
+            context.getResources().getIdentifier("database_name", "string",
+                context.getPackageName())), null, 1/* database version */);
         this.context = context;
+
+        DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
+        DB_NAME = context.getResources().getString(
+            context.getResources().getIdentifier("database_name", "string",
+                context.getPackageName()));
     }
 
     public void createDatabase()
@@ -44,13 +50,11 @@ public class DatabaseInitializer
     private boolean checkDatabase()
     {
         SQLiteDatabase checkDB = null;
-
         try {
-            String myPath = DB_PATH + DB_NAME;
-            checkDB = SQLiteDatabase.openDatabase(myPath, null,
+            checkDB = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null,
                 SQLiteDatabase.OPEN_READONLY);
-
         } catch (SQLiteException e) {
+            e.printStackTrace();
         }
 
         if (checkDB != null) {
@@ -63,12 +67,8 @@ public class DatabaseInitializer
     private void copyDatabase()
         throws IOException
     {
-
         InputStream myInput = context.getAssets().open(DB_NAME);
-
-        String outFileName = DB_PATH + DB_NAME;
-
-        OutputStream myOutput = new FileOutputStream(outFileName);
+        OutputStream myOutput = new FileOutputStream(DB_PATH + DB_NAME);
 
         byte[] buffer = new byte[1024];
         int length;
@@ -79,25 +79,26 @@ public class DatabaseInitializer
         myOutput.flush();
         myOutput.close();
         myInput.close();
-
     }
 
     @Override
     public synchronized void close()
     {
         if (database != null) database.close();
-
         super.close();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db)
     {
+        Log.i(DatabaseInitializer.class.getName(), "onCreate(" + db.toString()
+                        + ")");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
+        Log.i(DatabaseInitializer.class.getName(), "onUpgrade(" + db.toString()
+                        + "," + oldVersion + "=>" + newVersion + ")");
     }
-
 }

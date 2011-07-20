@@ -7,12 +7,12 @@ import android.content.Context;
 public class DatabaseContext
 {
     private final DatabaseHelper db;
-    public DatabaseDaoImpl articles;
+    public DatabaseDaoImpl toc;
 
     public DatabaseContext(Context context) throws SQLException
     {
         DatabaseManager<DatabaseHelper> manager = new DatabaseManager<DatabaseHelper>();
         db = manager.getHelper(context);
-        articles = new DatabaseDaoImpl(db);
+        toc = new DatabaseDaoImpl(db);
     }
 }

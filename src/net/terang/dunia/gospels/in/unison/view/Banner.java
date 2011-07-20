@@ -5,11 +5,9 @@ import android.content.*;
 import android.graphics.drawable.*;
 import android.util.*;
 import android.view.*;
-import android.view.View.OnClickListener;
 
 public class Banner
     extends View
-    implements OnClickListener
 {
     private Drawable logo;
 
@@ -44,11 +42,5 @@ public class Banner
         int height = width * logo.getIntrinsicHeight()
                         / logo.getIntrinsicWidth();
         setMeasuredDimension(width, height);
-    }
-
-    @Override
-    public void onClick(View v)
-    {
-        Log.d(Banner.class.getName(), v.toString());
     }
 }

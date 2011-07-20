@@ -6,52 +6,52 @@ import java.util.*;
 import net.terang.dunia.gospels.in.unison.model.*;
 
 import com.j256.ormlite.dao.*;
-import com.j256.ormlite.stmt.*;
 
 /**
  * implements CRUD, among other utility functions
- * 
- * @author lwy08
  */
 public class DatabaseDaoImpl
 {
-    Dao<Article, String> articleDao;
+    Dao<TocItem, String> tocDao;
 
     public DatabaseDaoImpl(DatabaseHelper db) throws SQLException
     {
-        articleDao = db.getArticleDao();
+        tocDao = db.getTocDao();
     }
 
-    public int create(Article animal)
+    public int create(TocItem article)
         throws SQLException
     {
-        return articleDao.create(animal);
+        return tocDao.create(article);
     }
 
-    public int update(Article animal)
+    public int update(TocItem article)
         throws SQLException
     {
-        return articleDao.update(animal);
+        return tocDao.update(article);
     }
 
-    public int delete(Article animal)
+    public int delete(TocItem article)
         throws SQLException
     {
-        return articleDao.delete(animal);
+        return tocDao.delete(article);
     }
 
-    public Article getById(int id)
+    public TocItem getById(int id)
         throws SQLException
     {
-        QueryBuilder<Article, String> queryBuilder = articleDao.queryBuilder();
-        queryBuilder.where().eq("id", id);
-        PreparedQuery<Article> pq = queryBuilder.prepare();
-        return articleDao.queryForFirst(pq);
+        return tocDao.queryForId(Integer.toString(id));
     }
 
-    public List<Article> getAll()
+    public int length()
         throws SQLException
     {
-        return articleDao.queryForAll();
+        return tocDao.queryForAll().size();
+    }
+
+    public List<TocItem> getAll()
+        throws SQLException
+    {
+        return tocDao.queryForAll();
     }
 }

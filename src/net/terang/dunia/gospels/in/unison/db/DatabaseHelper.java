@@ -17,14 +17,16 @@ import com.j256.ormlite.table.*;
 public class DatabaseHelper
     extends OrmLiteSqliteOpenHelper
 {
-    private static final String DATABASE_NAME = "injil-tuhan-yesus.db";
-    private static final int DATABASE_VERSION = 1;
-
-    private Dao<Article, String> articleDao = null;
+    private Dao<TocItem, String> articleDao = null;
 
     public DatabaseHelper(Context context)
     {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, context.getResources().getString(
+            context.getResources().getIdentifier("database_name", "string",
+                context.getPackageName())), null, 1/* database version */);
+
+        Log.d(DatabaseHelper.class.getName(), context.getPackageName());
+
         DatabaseInitializer initializer = new DatabaseInitializer(context);
         try {
             initializer.createDatabase();
@@ -50,7 +52,7 @@ public class DatabaseHelper
     {
         try {
             Log.i(DatabaseHelper.class.getName(), "onUpgrade");
-            TableUtils.dropTable(connectionSource, Article.class, true);
+            TableUtils.dropTable(connectionSource, TocItem.class, true);
             onCreate(db);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't drop databases", e);
@@ -58,12 +60,12 @@ public class DatabaseHelper
         }
     }
 
-    public Dao<Article, String> getArticleDao()
+    public Dao<TocItem, String> getTocDao()
         throws SQLException
     {
         if (articleDao == null) {
             articleDao = DaoManager.createDao(getConnectionSource(),
-                Article.class);
+                TocItem.class);
         }
         return articleDao;
     }
