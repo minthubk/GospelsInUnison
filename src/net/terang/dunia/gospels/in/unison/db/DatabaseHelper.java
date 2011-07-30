@@ -17,7 +17,7 @@ public class DatabaseHelper
     extends OrmLiteSqliteOpenHelper
 {
     private static final String TAG_NAME = DatabaseHelper.class.getSimpleName();
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 11;
     private transient final Context mContext;
 
     private final DatabaseInitializer initializer;
@@ -55,13 +55,6 @@ public class DatabaseHelper
     {
         Log.d(TAG_NAME, String.format("onCreate(%s)", db.toString()));
 
-        try {
-            initializer.createDatabase();
-            initializer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         // try {
         // TableUtils.createTableIfNotExists(connectionSource,
         // TocItem.class);
@@ -96,13 +89,17 @@ public class DatabaseHelper
         int oldVersion,
         int newVersion)
     {
+        Log.d(
+            TAG_NAME,
+            String.format("onUpgrade(db=%s [%d=>%d], connStr=%s)",
+                db.toString(), oldVersion, newVersion,
+                connectionSource.toString()));
         // try {
-        Log.d(TAG_NAME, "onUpgrade");
-        Log.d(TAG_NAME, "onUpgrade(): Refreshing table 'toc'...");
+        // Log.d(TAG_NAME, "onUpgrade(): Refreshing table 'toc'...");
         // TableUtils.dropTable(connectionSource, TocItem.class, true);
-        Log.d(TAG_NAME, "onUpgrade(): Refreshing table 'book'...");
+        // Log.d(TAG_NAME, "onUpgrade(): Refreshing table 'book'...");
         // TableUtils.dropTable(connectionSource, BookItem.class, true);
-        onCreate(db, connectionSource);
+        // onCreate(db, connectionSource);
         // } catch (SQLException e) {
         // throw new RuntimeException("Can't drop tables in database");
         // }
@@ -119,8 +116,10 @@ public class DatabaseHelper
     {
         final SQLiteDatabase database = getWritableDatabase();
         final ConnectionSource connection = getConnectionSource();
+
         TableUtils.dropTable(connection, TocItem.class, true);
         TableUtils.dropTable(connection, BookItem.class, true);
+
         onCreate(database, connection);
     }
 

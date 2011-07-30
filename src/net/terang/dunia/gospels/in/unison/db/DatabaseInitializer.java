@@ -29,56 +29,43 @@ public class DatabaseInitializer
         throws IOException
     {
         Log.d(TAG_NAME, "createDatabase()");
-        // boolean bDbExist = isDatabaseExists();
-        // if (!bDbExist) {
-        try {
-            copyDatabase();
-        } catch (IOException e) {
-            throw new IOException("Error copying database");
+
+        // check if db exists
+        if (!isDatabaseExists()) {
+            try {
+                copyDatabase();
+            } catch (IOException e) {
+                throw new IOException("Error copying database");
+            }
         }
-        // }
     }
 
     private boolean isDatabaseExists()
     {
-        Log.d(TAG_NAME,
-            String.format("checkDatabase(dstPath=%s)", DB_PATH + DB_NAME));
-
-        Log.d(TAG_NAME, String.format("dstPath(concat) @%s", DB_PATH + DB_NAME));
-        Log.d(
-            TAG_NAME,
-            String.format("dstPath(File) @%s",
-                new File(DB_PATH, DB_NAME).getAbsolutePath()));
-
-        SQLiteDatabase db = null;
         try {
-            db = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null,
+            String path = new File(DB_PATH, DB_NAME).getAbsolutePath();
+            database = SQLiteDatabase.openDatabase(path, null,
                 SQLiteDatabase.OPEN_READONLY);
         } catch (SQLiteException e) {
+            // database doesn't exist yet
             e.printStackTrace();
         }
 
-        if (db != null) {
-            db.close();
+        if (database != null) {
+            database.close();
         }
 
-        return db != null;
+        return database != null;
     }
 
     private void copyDatabase()
         throws IOException
     {
-        Log.d(TAG_NAME,
-            String.format("copyDatabase(dstPath=%s)", DB_PATH + DB_NAME));
-
-        Log.d(TAG_NAME, String.format("dstPath(concat) @%s", DB_PATH + DB_NAME));
-        Log.d(
-            TAG_NAME,
-            String.format("dstPath(File) @%s",
-                new File(DB_PATH, DB_NAME).getAbsolutePath()));
+        String path = new File(DB_PATH, DB_NAME).getAbsolutePath();
+        Log.d(TAG_NAME, String.format("copyDatabase(dstPath=%s)", path));
 
         InputStream myInput = context.getAssets().open(DB_NAME);
-        OutputStream myOutput = new FileOutputStream(DB_PATH + DB_NAME, false);
+        OutputStream myOutput = new FileOutputStream(path, false);
 
         // buffered IO write operation
         byte[] buffer = new byte[1024];
