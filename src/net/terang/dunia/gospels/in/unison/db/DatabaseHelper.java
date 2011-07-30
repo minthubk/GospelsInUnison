@@ -4,7 +4,6 @@ import java.io.*;
 import java.sql.*;
 
 import net.terang.dunia.gospels.in.unison.model.*;
-
 import android.content.*;
 import android.database.sqlite.*;
 import android.util.*;
@@ -17,30 +16,77 @@ import com.j256.ormlite.table.*;
 public class DatabaseHelper
     extends OrmLiteSqliteOpenHelper
 {
-    private Dao<TocItem, String> articleDao = null;
+    private static final String TAG_NAME = DatabaseHelper.class.getSimpleName();
+    private static final int DATABASE_VERSION = 10;
+    private transient final Context mContext;
 
-    public DatabaseHelper(Context context)
+    private final DatabaseInitializer initializer;
+    private Dao<TocItem, String> tocDao = null;
+    private Dao<BookItem, String> bookDao = null;
+
+    /**
+     * Initializes the database helper
+     * 
+     * @param ctx the context to run in.
+     * @throws SQLException
+     */
+    public DatabaseHelper(final Context context) throws SQLException
     {
         super(context, context.getResources().getString(
             context.getResources().getIdentifier("database_name", "string",
-                context.getPackageName())), null, 1/* database version */);
+                context.getPackageName())), null, DATABASE_VERSION);
+        Log.d(TAG_NAME, "Package name: " + context.getPackageName());
+        mContext = context;
 
-        Log.d(DatabaseHelper.class.getName(), context.getPackageName());
-
-        DatabaseInitializer initializer = new DatabaseInitializer(context);
+        initializer = new DatabaseInitializer(mContext);
         try {
             initializer.createDatabase();
             initializer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        getTocDao();
+        getBookDao();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource)
     {
-        Log.i(DatabaseHelper.class.getName(), "onCreate");
-        // TableUtils.createTable(connectionSource, Article.class);
+        Log.d(TAG_NAME, String.format("onCreate(%s)", db.toString()));
+
+        try {
+            initializer.createDatabase();
+            initializer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // try {
+        // TableUtils.createTableIfNotExists(connectionSource,
+        // TocItem.class);
+        // TableUtils.createTableIfNotExists(connectionSource,
+        // BookItem.class);
+        // TableUtils.clearTable(connectionSource, TocItem.class);
+        // TableUtils.clearTable(connectionSource, BookItem.class);
+        // TocDbContext tocDbContext = new TocDbContext(mContext);
+        // List<TocItem> tocList = tocDbContext.toc.getAll();
+        // int chapter_no = 1;
+        // for (TocItem item : tocList) {
+        // getTocDao().createOrUpdate(item);
+        // BookDbContext bookDbContext = new BookDbContext(mContext);
+        // List<BookItem> bookList = bookDbContext.book.getAll(chapter_no);
+        // if (bookList == null) continue;
+        // for (BookItem chapter : bookList) {
+        // if (chapter == null) break;
+        // getBookDao().createOrUpdate(chapter);
+        // }
+        // chapter_no++;
+        // }
+        // fillDatabaseWithDummyData();
+        // } catch (SQLException e) {
+        // throw new RuntimeException("Can't create database");
+        // }
     }
 
     @Override
@@ -50,30 +96,143 @@ public class DatabaseHelper
         int oldVersion,
         int newVersion)
     {
-        try {
-            Log.i(DatabaseHelper.class.getName(), "onUpgrade");
-            TableUtils.dropTable(connectionSource, TocItem.class, true);
-            onCreate(db);
-        } catch (SQLException e) {
-            Log.e(DatabaseHelper.class.getName(), "Can't drop databases", e);
-            throw new RuntimeException(e);
-        }
+        // try {
+        Log.d(TAG_NAME, "onUpgrade");
+        Log.d(TAG_NAME, "onUpgrade(): Refreshing table 'toc'...");
+        // TableUtils.dropTable(connectionSource, TocItem.class, true);
+        Log.d(TAG_NAME, "onUpgrade(): Refreshing table 'book'...");
+        // TableUtils.dropTable(connectionSource, BookItem.class, true);
+        onCreate(db, connectionSource);
+        // } catch (SQLException e) {
+        // throw new RuntimeException("Can't drop tables in database");
+        // }
+    }
+
+    /**
+     * Drops all tables and recreates them.
+     * Used by unit tests only!!!
+     * 
+     * @throws SQLException
+     */
+    public void recreateDatabase()
+        throws SQLException
+    {
+        final SQLiteDatabase database = getWritableDatabase();
+        final ConnectionSource connection = getConnectionSource();
+        TableUtils.dropTable(connection, TocItem.class, true);
+        TableUtils.dropTable(connection, BookItem.class, true);
+        onCreate(database, connection);
     }
 
     public Dao<TocItem, String> getTocDao()
         throws SQLException
     {
-        if (articleDao == null) {
-            articleDao = DaoManager.createDao(getConnectionSource(),
-                TocItem.class);
+        if (tocDao == null) {
+            tocDao = DaoManager.createDao(getConnectionSource(), TocItem.class);
         }
-        return articleDao;
+        return tocDao;
+    }
+
+    public Dao<BookItem, String> getBookDao()
+        throws SQLException
+    {
+        if (bookDao == null) {
+            bookDao = DaoManager.createDao(getConnectionSource(),
+                BookItem.class);
+        }
+        return bookDao;
     }
 
     @Override
     public void close()
     {
         super.close();
-        articleDao = null;
+        tocDao = null;
+        bookDao = null;
     }
+
+    // private void fillDatabaseWithDummyData() {
+    // final ScheduleActivityRepo activityService = new
+    // ScheduleActivityRepo(mContext);
+    // final Random rand = new Random();
+    // final Date date = new Date();
+    // final GregorianCalendar cal = new GregorianCalendar();
+    //
+    // final StepRepo mStepService = new StepRepo(mContext);
+    // final DateRepo mDateService = new DateRepo(mContext);
+    // final List<Integer> activities = new ArrayList<Integer>();
+    // Step step;
+    // ScheduleActivity activity;
+    // DbDate dbdate;
+    //
+    // //Wake up activity
+    // activity = new ScheduleActivity("Good morning!");
+    // activity.setImage("/mnt/sdcard/Visual Schedule Media/Visual Schedule Images/alarmclock"+IMG_EXTENSION);
+    // activityService.create(activity);
+    // date.setHours( 7 );
+    // date.setMinutes( 30 );
+    // dbdate = new DbDate(activity, date);
+    // mDateService.create(dbdate);
+    // activityService.update(activity);
+    // activity = activityService.getById(activity.getId());
+    //
+    // step = new Step(activity, "Turn alarm clock off");
+    // step.setImage("/mnt/sdcard/Visual Schedule Media/Visual Schedule Images/alarmclock"+IMG_EXTENSION);
+    // mStepService.create(step);
+    //
+    // //Add some random activities
+    // final int amountActivities = 4;
+    // final int amountStepsPerActivity = 5;
+    //
+    // for (int i = 1; i <= amountActivities; i++) {
+    // final ScheduleActivity act = new ScheduleActivity("Activity Example " +
+    // i);
+    // act.setImage("/mnt/sdcard/Visual Schedule Media/Visual Schedule Images/"
+    // + (i % 14) + IMG_EXTENSION);
+    //
+    // activityService.create(act);
+    // activities.add(act.getId());
+    //
+    // date.setHours( (cal.get(Calendar.HOUR_OF_DAY) + (rand.nextInt(10)) ) % 22
+    // );
+    // date.setMinutes( (cal.get(Calendar.MINUTE) + (rand.nextInt(60)) ) % 58 );
+    //
+    // dbdate = new DbDate(act, date);
+    // mDateService.create(dbdate);
+    //
+    // activityService.update(act);
+    // }
+    //
+    // ScheduleActivity act = activityService.getById(activities.get(0));
+    //
+    // step = new Step(act, "Step 1");
+    // step.setImage("/mnt/sdcard/Visual Schedule Media/Visual Schedule Images/1"
+    // + IMG_EXTENSION);
+    // mStepService.create(step);
+    //
+    // step = new Step(act, "Step 2");
+    // step.setImage("/mnt/sdcard/Visual Schedule Media/Visual Schedule Images/2"
+    // + IMG_EXTENSION);
+    // step.setAudio("/mnt/sdcard/Visual Schedule Media/Visual Schedule Audio/2"
+    // + AUDIO_EXTENSION);
+    // mStepService.create(step);
+    //
+    // //Generate image only steps
+    // for (int i = 1; i <= amountActivities; i++) {
+    // act = activityService.getById(activities.get(i-1));
+    // for (int j = 1; j <= amountStepsPerActivity; j++) {
+    // step = new Step(act, "Step " + j);
+    // if (j % 2 == 0) {
+    // step.setImage("/mnt/sdcard/Visual Schedule Media/Visual Schedule Images/"
+    // + j + IMG_EXTENSION);
+    // } else {
+    // step.setImage("/mnt/sdcard/Visual Schedule Media/Visual Schedule Images/"
+    // + ( j % 15) + IMG_EXTENSION);
+    // step.setAudio("/mnt/sdcard/Visual Schedule Media/Visual Schedule Audio/"
+    // + (j % 6) + IMG_EXTENSION);
+    // }
+    // mStepService.create(step);
+    // }
+    // }
+    // }
 }

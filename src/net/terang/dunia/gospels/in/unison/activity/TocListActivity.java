@@ -1,5 +1,6 @@
 package net.terang.dunia.gospels.in.unison.activity;
 
+import java.io.*;
 import java.sql.*;
 
 import net.terang.dunia.gospels.in.unison.*;
@@ -33,13 +34,16 @@ public class TocListActivity
             setListAdapter(new TocAdapter(this));
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
 
         // TextViews
         txtTitle = (TextView) findViewById(R.id.txtTitle);
         btnExit = (Button) findViewById(R.id.btnExit);
         if (txtTitle == null || btnExit == null) {
-            Log.d(TAG_NAME, "txtTitle / txtContent in main View is null");
+            Log.d(TAG_NAME, "txtTitle / btnExit in main View is null");
             return;
         }
 

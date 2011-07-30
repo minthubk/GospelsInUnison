@@ -18,7 +18,7 @@ public final class R {
         public static final int btmLinearLayout=0x7f050002;
         public static final int btnExit=0x7f050004;
         public static final int list=0x7f050003;
-        public static final int tocItem=0x7f050000;
+        public static final int listItem=0x7f050000;
         public static final int txtTitle=0x7f050001;
     }
     public static final class layout {

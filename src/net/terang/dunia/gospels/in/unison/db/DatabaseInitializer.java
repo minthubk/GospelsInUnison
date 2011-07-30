@@ -1,28 +1,22 @@
 package net.terang.dunia.gospels.in.unison.db;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.content.*;
+import android.database.sqlite.*;
 import android.util.*;
 
 public class DatabaseInitializer
-    extends SQLiteOpenHelper
 {
+    private static final String TAG_NAME = DatabaseInitializer.class
+                    .getSimpleName();
     private SQLiteDatabase database;
     private final Context context;
     private final String DB_PATH, DB_NAME;
 
     public DatabaseInitializer(Context context)
     {
-        super(context, context.getResources().getString(
-            context.getResources().getIdentifier("database_name", "string",
-                context.getPackageName())), null, 1/* database version */);
+        Log.d(TAG_NAME, "DatabaseInitializer::()");
         this.context = context;
 
         DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
@@ -34,42 +28,59 @@ public class DatabaseInitializer
     public void createDatabase()
         throws IOException
     {
-        boolean dbExist = checkDatabase();
-
-        if (!dbExist) {
-            this.getReadableDatabase();
-            try {
-                copyDatabase();
-            } catch (IOException e) {
-                throw new Error("Error copying database");
-            }
+        Log.d(TAG_NAME, "createDatabase()");
+        // boolean bDbExist = isDatabaseExists();
+        // if (!bDbExist) {
+        try {
+            copyDatabase();
+        } catch (IOException e) {
+            throw new IOException("Error copying database");
         }
-
+        // }
     }
 
-    private boolean checkDatabase()
+    private boolean isDatabaseExists()
     {
-        SQLiteDatabase checkDB = null;
+        Log.d(TAG_NAME,
+            String.format("checkDatabase(dstPath=%s)", DB_PATH + DB_NAME));
+
+        Log.d(TAG_NAME, String.format("dstPath(concat) @%s", DB_PATH + DB_NAME));
+        Log.d(
+            TAG_NAME,
+            String.format("dstPath(File) @%s",
+                new File(DB_PATH, DB_NAME).getAbsolutePath()));
+
+        SQLiteDatabase db = null;
         try {
-            checkDB = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null,
+            db = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null,
                 SQLiteDatabase.OPEN_READONLY);
         } catch (SQLiteException e) {
             e.printStackTrace();
         }
 
-        if (checkDB != null) {
-            checkDB.close();
+        if (db != null) {
+            db.close();
         }
 
-        return checkDB != null ? true : false;
+        return db != null;
     }
 
     private void copyDatabase()
         throws IOException
     {
-        InputStream myInput = context.getAssets().open(DB_NAME);
-        OutputStream myOutput = new FileOutputStream(DB_PATH + DB_NAME);
+        Log.d(TAG_NAME,
+            String.format("copyDatabase(dstPath=%s)", DB_PATH + DB_NAME));
 
+        Log.d(TAG_NAME, String.format("dstPath(concat) @%s", DB_PATH + DB_NAME));
+        Log.d(
+            TAG_NAME,
+            String.format("dstPath(File) @%s",
+                new File(DB_PATH, DB_NAME).getAbsolutePath()));
+
+        InputStream myInput = context.getAssets().open(DB_NAME);
+        OutputStream myOutput = new FileOutputStream(DB_PATH + DB_NAME, false);
+
+        // buffered IO write operation
         byte[] buffer = new byte[1024];
         int length;
         while ((length = myInput.read(buffer)) > 0) {
@@ -79,26 +90,16 @@ public class DatabaseInitializer
         myOutput.flush();
         myOutput.close();
         myInput.close();
+
+        myOutput = null;
+        myInput = null;
     }
 
-    @Override
     public synchronized void close()
     {
-        if (database != null) database.close();
-        super.close();
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db)
-    {
-        Log.i(DatabaseInitializer.class.getName(), "onCreate(" + db.toString()
-                        + ")");
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {
-        Log.i(DatabaseInitializer.class.getName(), "onUpgrade(" + db.toString()
-                        + "," + oldVersion + "=>" + newVersion + ")");
+        if (database != null) {
+            database.close();
+            database = null;
+        }
     }
 }

@@ -13,7 +13,7 @@ INSERT INTO toc ('id', 'title') VALUES('12','Masa Kanak-kanak Yesus');
 INSERT INTO toc ('id', 'title') VALUES('13','Permulaan Pelayanan Yesus Kristus');
 INSERT INTO toc ('id', 'title') VALUES('14','Yesus Dibaptis');
 INSERT INTO toc ('id', 'title') VALUES('15','Yesus Dicobai');
-INSERT INTO toc ('id', 'title') VALUES('16','Kesaksian Yohanes Pembaptis Yohanes 1:19-34');
+INSERT INTO toc ('id', 'title') VALUES('16','Kesaksian Yohanes Pembaptis (Yohanes 1:19-34)');
 INSERT INTO toc ('id', 'title') VALUES('17','Murid-murid Yesus Yang Pertama');
 INSERT INTO toc ('id', 'title') VALUES('18','Mujizad Pertama Di Kana');
 INSERT INTO toc ('id', 'title') VALUES('19','Paskah Pertama Dan Yesus Meyucikan Bait Allah Untuk Pertama Kali');
