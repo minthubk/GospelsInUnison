@@ -17,7 +17,7 @@ public class TocDaoImpl
 
     public TocDaoImpl(DatabaseHelper db) throws SQLException
     {
-        tocDao = db.getTocDao();
+        tocDao = db.initTocDao();
     }
 
     public int create(TocItem article)

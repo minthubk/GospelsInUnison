@@ -16,7 +16,7 @@ public class DatabaseInitializer
 
     public DatabaseInitializer(Context context)
     {
-        Log.d(TAG_NAME, "DatabaseInitializer::()");
+        Log.d(TAG_NAME, "::init()");
         this.context = context;
 
         DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
@@ -29,17 +29,16 @@ public class DatabaseInitializer
         throws IOException
     {
         Log.d(TAG_NAME, "createDatabase()");
-
-        // check if db exists
-        if (!isDatabaseExists()) {
-            try {
-                copyDatabase();
-            } catch (IOException e) {
-                throw new IOException("Error copying database");
-            }
+        // check if db exists - isDatabaseExists()
+        try {
+            Log.d(TAG_NAME, "Updating database '" + DB_NAME + "'...");
+            copyDatabase();
+        } catch (IOException e) {
+            throw new IOException("Error updating database '" + DB_NAME + "'");
         }
     }
 
+    @SuppressWarnings("unused")
     private boolean isDatabaseExists()
     {
         try {

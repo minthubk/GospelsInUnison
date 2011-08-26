@@ -35,7 +35,7 @@ public class DatabaseHelper
         super(context, context.getResources().getString(
             context.getResources().getIdentifier("database_name", "string",
                 context.getPackageName())), null, DATABASE_VERSION);
-        Log.d(TAG_NAME, "Package name: " + context.getPackageName());
+        Log.d(TAG_NAME, "init()::Package name - " + context.getPackageName());
         mContext = context;
 
         initializer = new DatabaseInitializer(mContext);
@@ -46,15 +46,14 @@ public class DatabaseHelper
             e.printStackTrace();
         }
 
-        getTocDao();
-        getBookDao();
+        initTocDao();
+        initBookDao();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource)
     {
         Log.d(TAG_NAME, String.format("onCreate(%s)", db.toString()));
-
         // try {
         // TableUtils.createTableIfNotExists(connectionSource,
         // TocItem.class);
@@ -123,7 +122,7 @@ public class DatabaseHelper
         onCreate(database, connection);
     }
 
-    public Dao<TocItem, String> getTocDao()
+    public Dao<TocItem, String> initTocDao()
         throws SQLException
     {
         if (tocDao == null) {
@@ -132,7 +131,7 @@ public class DatabaseHelper
         return tocDao;
     }
 
-    public Dao<BookItem, String> getBookDao()
+    public Dao<BookItem, String> initBookDao()
         throws SQLException
     {
         if (bookDao == null) {
@@ -150,13 +149,14 @@ public class DatabaseHelper
         bookDao = null;
     }
 
+    /** for unit testing purposes */
+
     // private void fillDatabaseWithDummyData() {
     // final ScheduleActivityRepo activityService = new
     // ScheduleActivityRepo(mContext);
     // final Random rand = new Random();
     // final Date date = new Date();
     // final GregorianCalendar cal = new GregorianCalendar();
-    //
     // final StepRepo mStepService = new StepRepo(mContext);
     // final DateRepo mDateService = new DateRepo(mContext);
     // final List<Integer> activities = new ArrayList<Integer>();
@@ -207,13 +207,6 @@ public class DatabaseHelper
     // step = new Step(act, "Step 1");
     // step.setImage("/mnt/sdcard/Visual Schedule Media/Visual Schedule Images/1"
     // + IMG_EXTENSION);
-    // mStepService.create(step);
-    //
-    // step = new Step(act, "Step 2");
-    // step.setImage("/mnt/sdcard/Visual Schedule Media/Visual Schedule Images/2"
-    // + IMG_EXTENSION);
-    // step.setAudio("/mnt/sdcard/Visual Schedule Media/Visual Schedule Audio/2"
-    // + AUDIO_EXTENSION);
     // mStepService.create(step);
     //
     // //Generate image only steps

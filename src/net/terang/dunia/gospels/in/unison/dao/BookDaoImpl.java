@@ -18,7 +18,7 @@ public class BookDaoImpl
 
     public BookDaoImpl(DatabaseHelper db) throws SQLException
     {
-        bookDao = db.getBookDao();
+        bookDao = db.initBookDao();
     }
 
     public int create(BookItem article)
