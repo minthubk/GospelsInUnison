@@ -7,8 +7,11 @@ import android.os.*;
 public class BaseListActivity
     extends ListActivity
 {
+    private static final String TAG_NAME = BaseListActivity.class
+                    .getSimpleName();
     private KillReceiver mKillReceiver;
 
+    /** Called when the activity is first created. */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -16,13 +19,6 @@ public class BaseListActivity
         mKillReceiver = new KillReceiver();
         registerReceiver(mKillReceiver,
             IntentFilter.create("android.action.KILL", "text/plain"));
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-        unregisterReceiver(mKillReceiver);
     }
 
     private final class KillReceiver
@@ -34,4 +30,12 @@ public class BaseListActivity
             finish();
         }
     }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        unregisterReceiver(mKillReceiver);
+    }
+
 }
