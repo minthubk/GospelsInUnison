@@ -42,4 +42,10 @@ public class TocItem
     {
         this.title = title;
     }
+
+    @Override
+    public String toString()
+    {
+        return String.format("%d: %s", id, title);
+    }
 }

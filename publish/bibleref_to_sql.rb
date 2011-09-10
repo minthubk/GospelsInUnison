@@ -1,13 +1,12 @@
 #!/usr/bin/env ruby
 
 [ 'open-uri', 'nokogiri', 'ruby-debug', 'enumerator', 'net/http', 'uri',
-  'scanf',
-  'pp', 'ap', # => # awesome_print
-  'lib/string'].each(&method(:require))
+  'scanf', 'pp', 'ap', # => # awesome_print
+  'rb-lib/string'].each(&method(:require))
 
-REFERENCE   = "Matius 5:1-8:1, Lukas 6:17-49, Kisah Para Rasul 20:35"
-$start_no   = 47
-ITJ_CHAPTER = 29
+REFERENCE   = "Lukas 8:1-3"
+$start_no   = 1
+ITJ_CHAPTER = 30
 TOC_URL     = "http://bibledbdata.org/onlinebibles/indonesian_tb/index.htm"
 
 class Application

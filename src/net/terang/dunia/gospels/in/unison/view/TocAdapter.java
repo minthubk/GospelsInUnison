@@ -2,6 +2,7 @@ package net.terang.dunia.gospels.in.unison.view;
 
 import java.io.*;
 import java.sql.*;
+import java.util.*;
 
 import net.terang.dunia.gospels.in.unison.*;
 import net.terang.dunia.gospels.in.unison.activity.*;
@@ -10,6 +11,7 @@ import net.terang.dunia.gospels.in.unison.db.*;
 import net.terang.dunia.gospels.in.unison.model.*;
 import android.content.*;
 import android.os.*;
+import android.text.*;
 import android.util.*;
 import android.view.*;
 import android.view.View.OnClickListener;
@@ -20,8 +22,10 @@ public class TocAdapter
 {
     private static final String TAG_NAME = TocAdapter.class.getSimpleName();
     private final LayoutInflater mInflater;
-    private final TocDbContext tocDbContext;
+
     private final Context context;
+    private final TocDbContext tocDbContext;
+    private final BookDbContext bookDbContext;
 
     /**
      * Constructor
@@ -34,7 +38,10 @@ public class TocAdapter
     {
         this.context = context;
         mInflater = LayoutInflater.from(context);
+
         tocDbContext = new TocDbContext(context);
+        bookDbContext = new BookDbContext(context);
+
         Log.d(TAG_NAME, "TocAdapter constructed successfully!");
     }
 
@@ -54,7 +61,7 @@ public class TocAdapter
     public TocItem getItem(int position)
     {
         try {
-            Log.d(TAG_NAME, "title " + position + " retrieved successfully");
+            Log.d(TAG_NAME, "toc#" + position + " retrieved successfully");
 
             // convert from 0-based (here) to 1-based (SQL) indexing
             return tocDbContext.toc.getById(position + 1);
@@ -75,23 +82,27 @@ public class TocAdapter
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        TocItem thisItem = getItem(position);
-        Log.d(TAG_NAME, "thisItem: " + thisItem);
-
+        // setup view
         View newView = convertView;
         if (newView == null) {
             newView = mInflater.inflate(R.layout.list_item, parent, false);
         }
-
         TextView txtTocItem = (TextView) newView.findViewById(R.id.listItem);
-        Log.d(TAG_NAME, Integer.toString(position + 1));
+
+        // query DB for item
+        TocItem thisItem = getItem(position);
 
         // populate textview with db data
+        Log.d(TAG_NAME, "getView(): thisItem - " + thisItem);
+
+        txtTocItem.setText("" + thisItem);
+        List<BookItem> items;
         try {
-            // convert from 0-based (here) to 1-based (SQL) indexing
-            TocItem item = tocDbContext.toc.getById(position + 1);
-            Log.d(TAG_NAME, item.getId() + " / " + item.getTitle());
-            txtTocItem.setText(item.getId() + ": " + item.getTitle());
+            items = bookDbContext.book.getAll(thisItem.getId());
+            if (items.size() <= 0) {
+                txtTocItem.setText(Html.fromHtml("<font color=red>" + thisItem
+                                + "</font>"));
+            }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -103,17 +114,15 @@ public class TocAdapter
             @Override
             public void onClick(View v)
             {
-                Log.d(TAG_NAME, "TOC Item pos@" + (pos + 1) + " was clicked!");
+                Log.d(TAG_NAME, "TOCItem#" + (pos + 1) + " was clicked!");
                 Intent myIntent = new Intent(context, BookListActivity.class);
 
                 // pass parameters onto next Activity //
                 // 1. first create the bundle and initialize it
                 Bundle bundle = new Bundle();
-
                 // 2. then add the parameters to bundle as required
                 bundle.putString("TITLE", getItem(pos).getTitle());
                 bundle.putInt("CHAPTER", pos + 1);
-
                 // 3. add this bundle to the intent
                 myIntent.putExtras(bundle);
 

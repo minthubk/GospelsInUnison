@@ -33,8 +33,10 @@ public class BookAdapter
         this.context = context;
         this.bundle = bundle;
         this.chapter = bundle.getInt("CHAPTER");
+
         mInflater = LayoutInflater.from(context);
         bookDbContext = new BookDbContext(context);
+
         Log.d(TAG_NAME, "BookAdapter constructed successfully!");
     }
 
@@ -54,7 +56,7 @@ public class BookAdapter
     public BookItem getItem(int position)
     {
         try {
-            Log.d(TAG_NAME, "title " + position + " retrieved successfully");
+            Log.d(TAG_NAME, "bookitem#" + position + " retrieved successfully");
 
             // convert from 0-based (here) to 1-based (SQL) indexing
             return bookDbContext.book.getContent(chapter, position + 1);
@@ -91,8 +93,7 @@ public class BookAdapter
             BookItem item = bookDbContext.book
                             .getContent(chapter, position + 1);
             if (item != null) {
-                Log.d(TAG_NAME, item.getChapter() + ":" + item.getVerse() + " "
-                                + item.getContent());
+                Log.d(TAG_NAME, "" + item);
                 txtBookItem.setText(Html.fromHtml(item.getContent()));
             }
         } catch (SQLException e) {

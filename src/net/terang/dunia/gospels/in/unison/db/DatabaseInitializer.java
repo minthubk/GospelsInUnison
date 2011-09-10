@@ -60,11 +60,13 @@ public class DatabaseInitializer
     private void copyDatabase()
         throws IOException
     {
-        String path = new File(DB_PATH, DB_NAME).getAbsolutePath();
-        Log.d(TAG_NAME, String.format("copyDatabase(dstPath=%s)", path));
+        String outputPath = new File(DB_PATH, DB_NAME).getAbsolutePath();
+
+        Log.d(TAG_NAME,
+            String.format("copyDatabase(): %s -> %s", DB_NAME, outputPath));
 
         InputStream myInput = context.getAssets().open(DB_NAME);
-        OutputStream myOutput = new FileOutputStream(path, false);
+        OutputStream myOutput = new FileOutputStream(outputPath, false);
 
         // buffered IO write operation
         byte[] buffer = new byte[1024];
@@ -76,7 +78,6 @@ public class DatabaseInitializer
         myOutput.flush();
         myOutput.close();
         myInput.close();
-
         myOutput = null;
         myInput = null;
     }

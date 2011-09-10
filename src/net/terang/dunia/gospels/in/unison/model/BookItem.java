@@ -56,4 +56,10 @@ public class BookItem
     {
         this.content = content;
     }
+
+    @Override
+    public String toString()
+    {
+        return String.format("%d:%d %s", chapter, verse, content);
+    }
 }
