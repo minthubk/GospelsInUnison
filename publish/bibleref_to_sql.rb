@@ -4,9 +4,9 @@
   'scanf', 'pp', 'ap', # => # awesome_print
   'rb-lib/string'].each(&method(:require))
 
-REFERENCE   = "Lukas 8:1-3"
+REFERENCE   = "Matius 9:32-34"
 $start_no   = 1
-ITJ_CHAPTER = 30
+ITJ_CHAPTER = 33
 TOC_URL     = "http://bibledbdata.org/onlinebibles/indonesian_tb/index.htm"
 
 class Application
