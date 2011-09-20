@@ -4,9 +4,9 @@
   'scanf', 'pp', 'ap', # => # awesome_print
   'rb-lib/string'].each(&method(:require))
 
-REFERENCE   = "Matius 9:32-34"
+REFERENCE   = "Lukas 17:1-10"
+ITJ_CHAPTER = 44
 $start_no   = 1
-ITJ_CHAPTER = 33
 TOC_URL     = "http://bibledbdata.org/onlinebibles/indonesian_tb/index.htm"
 
 class Application
@@ -82,9 +82,7 @@ class Application
     start_no = $start_no
     
     if header:
-      puts "INSERT INTO book ('chapter', 'verse', 'content') VALUES(#{ITJ_CHAPTER}, #{start_no}, '#{theBook} #{chapter}');"
-      start_no += 1
-      puts "INSERT INTO book ('chapter', 'verse', 'content') VALUES(#{ITJ_CHAPTER}, #{start_no}, '');"
+      puts "INSERT INTO book ('chapter', 'verse', 'content') VALUES(#{ITJ_CHAPTER}, #{start_no}, '(#{theBook} #{chapter}:#{start_verse}-#{end_verse})');"
       start_no += 1
     end
     
