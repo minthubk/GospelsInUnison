@@ -4,9 +4,9 @@
   'scanf', 'pp', 'ap', # => # awesome_print
   'rb-lib/string'].each(&method(:require))
 
-REFERENCE   = "Lukas 17:1-10"
-ITJ_CHAPTER = 44
-$start_no   = 1
+REFERENCE   = "Lukas 17:20-37"
+ITJ_CHAPTER = 46
+$start_no   = 25
 TOC_URL     = "http://bibledbdata.org/onlinebibles/indonesian_tb/index.htm"
 
 class Application
@@ -17,7 +17,7 @@ class Application
 
   def parse(ref, trailingNL)
     # break REFERENCE down to sub-components
-    
+
     # format across chapters
     reference = ref.scan(/(\D+)\s(\d+):(\d+)-(\d+):(\d+)/).flatten
     theBook, start_chapter, start_verse, end_chapter, end_verse = reference

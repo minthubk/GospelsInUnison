@@ -1,0 +1,18 @@
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 1, '154. Perumpamaan tentang Janda yang Ngotot');
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 2, '(Lukas 18:1-8)');
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 3, '1 Yesus mengatakan suatu perumpamaan kepada mereka untuk menegaskan, bahwa mereka harus selalu berdoa dengan tidak jemu-jemu.');
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 4, '2 Kata-Nya: "Dalam sebuah kota ada seorang hakim yang tidak takut akan Allah dan tidak menghormati seorangpun.');
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 5, '3 Dan di kota itu ada seorang janda yang selalu datang kepada hakim itu dan berkata: Belalah hakku terhadap lawanku.');
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 6, '4 Beberapa waktu lamanya hakim itu menolak. Tetapi kemudian ia berkata dalam hatinya: Walaupun aku tidak takut akan Allah dan tidak menghormati seorangpun,');
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 7, '5 namun karena janda ini menyusahkan aku, baiklah aku membenarkan dia, supaya jangan terus saja ia datang dan akhirnya menyerang aku."');
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 8, '6 Kata Tuhan: "Camkanlah apa yang dikatakan hakim yang lalim itu!');
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 9, '7 Tidakkah Allah akan membenarkan orang-orang pilihan-Nya yang siang malam berseru kepada-Nya? Dan adakah Ia mengulur-ulur waktu sebelum menolong mereka?');
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 10, '8 Aku berkata kepadamu: Ia akan segera membenarkan mereka. Akan tetapi, jika Anak Manusia itu datang, adakah Ia mendapati iman di bumi?"');
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 11, '155. Perumpamaan Tentang Farisi dan Pemungut Cukai');
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 12, '(Lukas 18:9-14)');
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 13, '9 Dan kepada beberapa orang yang menganggap dirinya benar dan memandang rendah semua orang lain, Yesus mengatakan perumpamaan ini:');
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 14, '10 "Ada dua orang pergi ke Bait Allah untuk berdoa; yang seorang adalah Farisi dan yang lain pemungut cukai.');
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 15, '11 Orang Farisi itu berdiri dan berdoa dalam hatinya begini: Ya Allah, aku mengucap syukur kepada-Mu, karena aku tidak sama seperti semua orang lain, bukan perampok, bukan orang lalim, bukan pezinah dan bukan juga seperti pemungut cukai ini;');
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 16, '12 aku berpuasa dua kali seminggu, aku memberikan sepersepuluh dari segala penghasilanku.');
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 17, '13 Tetapi pemungut cukai itu berdiri jauh-jauh, bahkan ia tidak berani menengadah ke langit, melainkan ia memukul diri dan berkata: Ya Allah, kasihanilah aku orang berdosa ini.');
+INSERT INTO book ('chapter', 'verse', 'content') VALUES(47, 18, '14 Aku berkata kepadamu: Orang ini pulang ke rumahnya sebagai orang yang dibenarkan Allah dan orang lain itu tidak. Sebab barangsiapa meninggikan diri, ia akan direndahkan dan barangsiapa merendahkan diri, ia akan ditinggikan."');
