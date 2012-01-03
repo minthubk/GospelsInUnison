@@ -1,12 +1,15 @@
-#!/usr/bin/env ruby
+#!/opt/local/bin/ruby1.9
 
-[ 'open-uri', 'nokogiri', 'ruby-debug', 'enumerator', 'net/http', 'uri',
-  'scanf', 'pp', 'ap', # => # awesome_print
-  'rb-lib/string'].each(&method(:require))
+require "scanf"
+require "net/http"
+require "pathname"
+require "uri"
+require "pp"
+require "nokogiri"
 
-REFERENCE   = "Lukas 17:20-37"
-ITJ_CHAPTER = 46
-$start_no   = 25
+REFERENCE   = "Yohanes 13:27-35"
+ITJ_CHAPTER = 54
+$START_NO   = 1
 TOC_URL     = "http://bibledbdata.org/onlinebibles/indonesian_tb/index.htm"
 
 class Application
@@ -45,7 +48,7 @@ class Application
         raise "Error in verse range"
       end
     end
-
+    
     if theBook.nil?
       # format single verse
       reference = ref.scan(/(\D+)\s(\d+):(\d+)/).flatten
@@ -79,24 +82,25 @@ class Application
     verses = fetch(url).gsub("\n", "").scan(/<blockquote>.*<\/blockquote>/)[0].scan(/#{chapter}:[^<]+<br>/).unshift("")[Integer(start_verse)..Integer(end_verse)]
     
     # generate SQL
-    start_no = $start_no
+    start_no = $START_NO
     
-    if header:
+    if false #header
       puts "INSERT INTO book ('chapter', 'verse', 'content') VALUES(#{ITJ_CHAPTER}, #{start_no}, '(#{theBook} #{chapter}:#{start_verse}-#{end_verse})');"
       start_no += 1
     end
-    
+
+    # content
     verses.each do |line|
       puts "INSERT INTO book ('chapter', 'verse', 'content') VALUES(#{ITJ_CHAPTER}, #{start_no}, '#{line[(line.index(':')+1)..-1].gsub("<br>","")}');"
       start_no += 1
     end
 
-    if footer:
+    if footer
       puts "INSERT INTO book ('chapter', 'verse', 'content') VALUES(#{ITJ_CHAPTER}, #{start_no}, '');"
       start_no += 1
     end
     
-    $start_no = start_no
+    $START_NO = start_no
   end
 
   def getEndChapter(theBook, chapter)

@@ -1,0 +1,98 @@
+01-03 04:15:29.263 I/ActivityManager(164): Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=net.terang.dunia.gospels.in.unison/.activity.MainActivity } from pid 16880
+01-03 04:15:29.393 I/ActivityManager(164): Start proc net.terang.dunia.gospels.in.unison for activity net.terang.dunia.gospels.in.unison/.activity.MainActivity: pid=21672 uid=10066 gids={}
+01-03 04:15:30.384 I/ActivityManager(164): Starting: Intent { cmp=net.terang.dunia.gospels.in.unison/.activity.TocListActivity } from pid 21672
+01-03 04:15:35.339 W/ActivityManager(164): Duplicate finish request for HistoryRecord{4085b598 net.terang.dunia.gospels.in.unison/.activity.MainActivity}
+01-03 04:15:35.849 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40916088 net.terang.dunia.gospels.in.unison/.activity.TocListActivity}
+01-03 04:15:38.061 I/ActivityManager(164): Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=net.terang.dunia.gospels.in.unison/.activity.MainActivity } from pid 16880
+01-03 04:15:39.242 I/ActivityManager(164): Starting: Intent { cmp=net.terang.dunia.gospels.in.unison/.activity.TocListActivity } from pid 21672
+01-03 04:15:45.078 W/ActivityManager(164): Duplicate finish request for HistoryRecord{4092bc88 net.terang.dunia.gospels.in.unison/.activity.MainActivity}
+01-03 04:15:45.589 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40a0bca8 net.terang.dunia.gospels.in.unison/.activity.TocListActivity}
+01-03 04:16:37.329 I/ActivityManager(164): Starting: Intent { act=android.settings.APPLICATION_DETAILS_SETTINGS dat=package:net.terang.dunia.gospels.in.unison cmp=com.android.settings/.applications.InstalledAppDetails } from pid 21680
+01-03 04:16:40.182 I/ActivityManager(164): Force stopping package net.terang.dunia.gospels.in.unison uid=10066
+01-03 04:16:44.997 I/ActivityManager(164): Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=net.terang.dunia.gospels.in.unison/.activity.MainActivity } from pid 16880
+01-03 04:16:45.047 I/ActivityManager(164): Start proc net.terang.dunia.gospels.in.unison for activity net.terang.dunia.gospels.in.unison/.activity.MainActivity: pid=21715 uid=10066 gids={}
+01-03 04:16:46.268 I/ActivityManager(164): Starting: Intent { cmp=net.terang.dunia.gospels.in.unison/.activity.TocListActivity } from pid 21715
+01-03 04:16:47.879 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40bb8500 net.terang.dunia.gospels.in.unison/.activity.MainActivity}
+01-03 04:16:48.380 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40c10c50 net.terang.dunia.gospels.in.unison/.activity.TocListActivity}
+01-03 04:16:50.021 I/ActivityManager(164): Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=net.terang.dunia.gospels.in.unison/.activity.MainActivity } from pid 16880
+01-03 04:16:51.112 I/ActivityManager(164): Starting: Intent { cmp=net.terang.dunia.gospels.in.unison/.activity.TocListActivity } from pid 21715
+01-03 04:16:52.294 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40b1fce8 net.terang.dunia.gospels.in.unison/.activity.MainActivity}
+01-03 04:16:52.774 W/ActivityManager(164): Duplicate finish request for HistoryRecord{406048b8 net.terang.dunia.gospels.in.unison/.activity.TocListActivity}
+01-03 04:16:59.230 I/ActivityManager(164): Force stopping package net.terang.dunia.gospels.in.unison uid=10066
+01-03 04:17:03.204 I/ActivityManager(164): Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=net.terang.dunia.gospels.in.unison/.activity.MainActivity } from pid 16880
+01-03 04:17:03.254 I/ActivityManager(164): Start proc net.terang.dunia.gospels.in.unison for activity net.terang.dunia.gospels.in.unison/.activity.MainActivity: pid=21724 uid=10066 gids={}
+01-03 04:17:04.365 I/ActivityManager(164): Starting: Intent { cmp=net.terang.dunia.gospels.in.unison/.activity.TocListActivity } from pid 21724
+01-03 04:17:12.013 I/ActivityManager(164): Starting: Intent { cmp=net.terang.dunia.gospels.in.unison/.activity.BookListActivity (has extras) } from pid 21724
+01-03 04:17:19.740 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40aed028 net.terang.dunia.gospels.in.unison/.activity.BookListActivity}
+01-03 04:17:21.032 I/ActivityManager(164): Starting: Intent { cmp=net.terang.dunia.gospels.in.unison/.activity.BookListActivity (has extras) } from pid 21724
+01-03 04:17:51.602 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40b15850 net.terang.dunia.gospels.in.unison/.activity.BookListActivity}
+01-03 04:17:52.683 I/ActivityManager(164): Starting: Intent { cmp=net.terang.dunia.gospels.in.unison/.activity.BookListActivity (has extras) } from pid 21724
+01-03 04:17:54.544 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40b2b098 net.terang.dunia.gospels.in.unison/.activity.BookListActivity}
+01-03 04:17:54.935 I/ActivityManager(164): Starting: Intent { cmp=net.terang.dunia.gospels.in.unison/.activity.BookListActivity (has extras) } from pid 21724
+01-03 04:17:56.396 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40b3d2f8 net.terang.dunia.gospels.in.unison/.activity.BookListActivity}
+01-03 04:17:56.807 I/ActivityManager(164): Starting: Intent { cmp=net.terang.dunia.gospels.in.unison/.activity.BookListActivity (has extras) } from pid 21724
+01-03 04:18:18.718 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40c1ec38 net.terang.dunia.gospels.in.unison/.activity.BookListActivity}
+01-03 04:18:20.340 I/ActivityManager(164): Starting: Intent { cmp=net.terang.dunia.gospels.in.unison/.activity.BookListActivity (has extras) } from pid 21724
+01-03 04:18:23.903 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40c34fe0 net.terang.dunia.gospels.in.unison/.activity.BookListActivity}
+01-03 04:18:25.294 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40a1a348 net.terang.dunia.gospels.in.unison/.activity.MainActivity}
+01-03 04:18:25.805 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40adc558 net.terang.dunia.gospels.in.unison/.activity.TocListActivity}
+01-03 04:18:28.017 I/ActivityManager(164): Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=net.terang.dunia.gospels.in.unison/.activity.MainActivity } from pid 16880
+01-03 04:18:29.278 I/ActivityManager(164): Starting: Intent { cmp=net.terang.dunia.gospels.in.unison/.activity.TocListActivity } from pid 21724
+01-03 04:18:30.680 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40af0968 net.terang.dunia.gospels.in.unison/.activity.TocListActivity}
+01-03 04:18:31.520 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40c1e418 net.terang.dunia.gospels.in.unison/.activity.MainActivity}
+01-03 04:18:34.844 I/ActivityManager(164): Force stopping package net.terang.dunia.gospels.in.unison uid=10066
+01-03 04:18:46.976 I/ActivityManager(164): Starting: Intent { act=android.settings.APPLICATION_DETAILS_SETTINGS dat=package:net.terang.dunia.gospels.in.unison cmp=com.android.settings/.applications.InstalledAppDetails } from pid 21680
+01-03 04:18:52.431 I/ActivityManager(164): Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=net.terang.dunia.gospels.in.unison/.activity.MainActivity } from pid 16880
+01-03 04:18:52.451 I/ActivityManager(164): Start proc net.terang.dunia.gospels.in.unison for activity net.terang.dunia.gospels.in.unison/.activity.MainActivity: pid=21734 uid=10066 gids={}
+01-03 04:18:53.472 I/ActivityManager(164): Starting: Intent { cmp=net.terang.dunia.gospels.in.unison/.activity.TocListActivity } from pid 21734
+01-03 04:18:55.113 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40a0bca8 net.terang.dunia.gospels.in.unison/.activity.MainActivity}
+01-03 04:18:55.614 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40a2ac48 net.terang.dunia.gospels.in.unison/.activity.TocListActivity}
+01-03 04:19:00.999 I/ActivityManager(164): Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=net.terang.dunia.gospels.in.unison/.activity.MainActivity } from pid 16880
+01-03 04:19:01.940 I/ActivityManager(164): Starting: Intent { cmp=net.terang.dunia.gospels.in.unison/.activity.TocListActivity } from pid 21734
+01-03 04:19:02.140 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.dao.TocDaoImpl.length(TocDaoImpl.java:50)
+01-03 04:19:02.140 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.view.TocAdapter.getCount(TocAdapter.java:52)
+01-03 04:19:02.250 I/ActivityManager(164): Displayed net.terang.dunia.gospels.in.unison/.activity.TocListActivity: +301ms
+01-03 04:19:03.191 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40aec0f0 net.terang.dunia.gospels.in.unison/.activity.MainActivity}
+01-03 04:19:03.722 W/ActivityManager(164): Duplicate finish request for HistoryRecord{4062aff8 net.terang.dunia.gospels.in.unison/.activity.TocListActivity}
+01-03 04:19:05.824 I/ActivityManager(164): Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=net.terang.dunia.gospels.in.unison/.activity.MainActivity } from pid 16880
+01-03 04:19:06.204 I/ActivityManager(164): Displayed net.terang.dunia.gospels.in.unison/.activity.MainActivity: +342ms
+01-03 04:19:06.845 D/MainActivity(21734): View: net.terang.dunia.gospels.in.unison.view.Banner@4062fd60 clicked!
+01-03 04:19:06.845 I/ActivityManager(164): Starting: Intent { cmp=net.terang.dunia.gospels.in.unison/.activity.TocListActivity } from pid 21734
+01-03 04:19:06.895 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.dao.TocDaoImpl.length(TocDaoImpl.java:50)
+01-03 04:19:06.895 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.view.TocAdapter.getCount(TocAdapter.java:52)
+01-03 04:19:06.895 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.activity.TocListActivity.onCreate(TocListActivity.java:34)
+01-03 04:19:06.905 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.dao.TocDaoImpl.length(TocDaoImpl.java:50)
+01-03 04:19:06.905 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.view.TocAdapter.getCount(TocAdapter.java:52)
+01-03 04:19:06.905 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.activity.TocListActivity.onCreate(TocListActivity.java:34)
+01-03 04:19:06.915 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.dao.TocDaoImpl.length(TocDaoImpl.java:50)
+01-03 04:19:06.915 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.view.TocAdapter.getCount(TocAdapter.java:52)
+01-03 04:19:06.915 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.dao.TocDaoImpl.length(TocDaoImpl.java:50)
+01-03 04:19:06.915 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.view.TocAdapter.getCount(TocAdapter.java:52)
+01-03 04:19:06.935 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.dao.TocDaoImpl.length(TocDaoImpl.java:50)
+01-03 04:19:06.935 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.view.TocAdapter.getCount(TocAdapter.java:52)
+01-03 04:19:06.945 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.dao.TocDaoImpl.length(TocDaoImpl.java:50)
+01-03 04:19:06.945 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.view.TocAdapter.getCount(TocAdapter.java:52)
+01-03 04:19:06.955 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.dao.TocDaoImpl.length(TocDaoImpl.java:50)
+01-03 04:19:06.955 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.view.TocAdapter.getCount(TocAdapter.java:52)
+01-03 04:19:06.955 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.dao.TocDaoImpl.length(TocDaoImpl.java:50)
+01-03 04:19:06.955 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.view.TocAdapter.getCount(TocAdapter.java:52)
+01-03 04:19:07.005 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.dao.TocDaoImpl.length(TocDaoImpl.java:50)
+01-03 04:19:07.005 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.view.TocAdapter.getCount(TocAdapter.java:52)
+01-03 04:19:07.015 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.dao.TocDaoImpl.length(TocDaoImpl.java:50)
+01-03 04:19:07.015 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.view.TocAdapter.getCount(TocAdapter.java:52)
+01-03 04:19:07.035 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.dao.TocDaoImpl.length(TocDaoImpl.java:50)
+01-03 04:19:07.035 W/System.err(21734): 	at net.terang.dunia.gospels.in.unison.view.TocAdapter.getCount(TocAdapter.java:52)
+01-03 04:19:07.145 I/ActivityManager(164): Displayed net.terang.dunia.gospels.in.unison/.activity.TocListActivity: +290ms
+01-03 04:19:08.076 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40bda640 net.terang.dunia.gospels.in.unison/.activity.MainActivity}
+01-03 04:19:08.577 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40903170 net.terang.dunia.gospels.in.unison/.activity.TocListActivity}
+01-03 04:19:10.999 I/ActivityManager(164): Force stopping package net.terang.dunia.gospels.in.unison uid=10066
+01-03 04:19:15.774 I/ActivityManager(164): Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=net.terang.dunia.gospels.in.unison/.activity.MainActivity } from pid 16880
+01-03 04:19:15.844 I/ActivityManager(164): Start proc net.terang.dunia.gospels.in.unison for activity net.terang.dunia.gospels.in.unison/.activity.MainActivity: pid=21743 uid=10066 gids={}
+01-03 04:19:16.214 I/ActivityManager(164): Displayed net.terang.dunia.gospels.in.unison/.activity.MainActivity: +383ms
+01-03 04:19:16.604 D/MainActivity(21743): View: net.terang.dunia.gospels.in.unison.view.Banner@405dced0 clicked!
+01-03 04:19:16.604 I/ActivityManager(164): Starting: Intent { cmp=net.terang.dunia.gospels.in.unison/.activity.TocListActivity } from pid 21743
+01-03 04:19:16.705 D/DatabaseHelper(21743): init()::Package name - net.terang.dunia.gospels.in.unison
+01-03 04:19:16.715 D/DatabaseInitializer(21743): copyDatabase(): injil-tuhan-yesus.db -> /data/data/net.terang.dunia.gospels.in.unison/databases/injil-tuhan-yesus.db
+01-03 04:19:17.455 I/ActivityManager(164): Displayed net.terang.dunia.gospels.in.unison/.activity.TocListActivity: +835ms
+01-03 04:19:18.436 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40c0a8b8 net.terang.dunia.gospels.in.unison/.activity.MainActivity}
+01-03 04:19:18.957 W/ActivityManager(164): Duplicate finish request for HistoryRecord{40bb8fd0 net.terang.dunia.gospels.in.unison/.activity.TocListActivity}
