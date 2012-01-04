@@ -33,10 +33,9 @@ public class TocListActivity
         try {
             setListAdapter(new TocAdapter(this));
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.e(TAG_NAME, "Error: SQLException", e);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Log.e(TAG_NAME, "Error: IOException", e);
         }
 
         // TextViews
@@ -54,6 +53,7 @@ public class TocListActivity
             public void onClick(View v)
             {
                 Log.d(TAG_NAME, "Exit button was clicked!");
+
                 Intent intent = new Intent("android.action.KILL");
                 intent.setType("text/plain");
                 sendBroadcast(intent);
@@ -66,7 +66,6 @@ public class TocListActivity
     {
         super.onDestroy();
         System.gc();
-        finish();
     }
 
     /**

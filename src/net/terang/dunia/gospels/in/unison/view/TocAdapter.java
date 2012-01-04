@@ -38,10 +38,8 @@ public class TocAdapter
     {
         this.context = context;
         mInflater = LayoutInflater.from(context);
-
         tocDbContext = new TocDbContext(context);
         bookDbContext = new BookDbContext(context);
-
         Log.d(TAG_NAME, "TocAdapter constructed successfully!");
     }
 
@@ -51,24 +49,23 @@ public class TocAdapter
         try {
             return tocDbContext.toc.length();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Log.e(TAG_NAME, "Error: unable to get count of ToC items", e);
         }
-        return -1;
+        return 0;
     }
 
     @Override
     public TocItem getItem(int position)
     {
         try {
-            Log.d(TAG_NAME, "toc#" + position + " retrieved successfully");
+            Log.d(TAG_NAME,
+                String.format("ToC#%d retrieved successfully", position));
 
-            // convert from 0-based (here) to 1-based (SQL) indexing
+            // convert from 0-based (here) -> 1-based (SQL) indexing
             return tocDbContext.toc.getById(position + 1);
-
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Log.e(TAG_NAME,
+                String.format("Error: unable to retrieve item#%d", position, e));
         }
         return null;
     }
@@ -99,13 +96,14 @@ public class TocAdapter
         List<BookItem> items;
         try {
             items = bookDbContext.book.getAll(thisItem.getId());
+
+            // highlight uncompleted chapters in red (HTML)
             if (items.size() <= 0) {
-                txtTocItem.setText(Html.fromHtml("<font color=red>" + thisItem
-                                + "</font>"));
+                txtTocItem.setText(Html.fromHtml(String.format(
+                    "<font color=red>%s</font>", thisItem)));
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Log.e(TAG_NAME, "Error: unable to retrieve items from database", e);
         }
 
         // attach event handler

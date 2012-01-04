@@ -46,24 +46,24 @@ public class BookAdapter
         try {
             return bookDbContext.book.length(chapter);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Log.e(TAG_NAME, "Error: unable to get length of chapter", e);
         }
-        return -1;
+        return 0;
     }
 
     @Override
     public BookItem getItem(int position)
     {
         try {
-            Log.d(TAG_NAME, "bookitem#" + position + " retrieved successfully");
+            Log.d(TAG_NAME,
+                String.format("BookItem#%d retrieved successfully", position));
 
-            // convert from 0-based (here) to 1-based (SQL) indexing
+            // convert from 0-based (here) -> 1-based (SQL) indexing
             return bookDbContext.book.getContent(chapter, position + 1);
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Log.e(TAG_NAME, String.format(
+                "Error: unable to retrieve BookItem@%d", position), e);
         }
         return null;
     }
@@ -87,9 +87,9 @@ public class BookAdapter
 
         txtBookItem.setPadding(0, 0, 0, 0);
 
-        // populate textview with db data
+        // populate TextView with data from DB
         try {
-            // convert from 0-based (here) to 1-based (SQL) indexing
+            // convert from 0-based (here) -> 1-based (SQL) indexing
             BookItem item = bookDbContext.book
                             .getContent(chapter, position + 1);
             if (item != null) {
@@ -97,8 +97,7 @@ public class BookAdapter
                 txtBookItem.setText(Html.fromHtml(item.getContent()));
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Log.e(TAG_NAME, "Error: unable to get content of chapter", e);
         }
 
         return newView;

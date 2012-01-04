@@ -63,7 +63,7 @@ public class BookListActivity
         try {
             setListAdapter(new BookAdapter(this, bundle));
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.e(TAG_NAME, "Error: Unable to set Adapter", e);
         }
 
         // TextViews
@@ -92,7 +92,6 @@ public class BookListActivity
     {
         super.onDestroy();
         System.gc();
-        finish();
     }
 
     /**

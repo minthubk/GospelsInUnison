@@ -3,6 +3,8 @@ package net.terang.dunia.gospels.in.unison.db;
 import java.io.*;
 
 import android.content.*;
+import android.content.res.*;
+import android.content.res.AssetManager.*;
 import android.database.sqlite.*;
 import android.util.*;
 
@@ -19,70 +21,87 @@ public class DatabaseInitializer
         Log.d(TAG_NAME, "::init()");
         this.context = context;
 
-        DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
-        DB_NAME = context.getResources().getString(
-            context.getResources().getIdentifier("database_name", "string",
-                context.getPackageName()));
+        DB_PATH = String.format("/data/data/%s/databases/",
+            context.getPackageName());
+        // TODO: optimise!
+        int resourceId = context.getResources().getIdentifier("database_name",
+            "string", context.getPackageName());
+
+        DB_NAME = context.getResources().getString(resourceId);
     }
 
     public void createDatabase()
-        throws IOException
     {
         Log.d(TAG_NAME, "createDatabase()");
-        // check if db exists - isDatabaseExists()
+
         try {
-            Log.d(TAG_NAME, "Updating database '" + DB_NAME + "'...");
+            Log.d(TAG_NAME, String.format("Updating database '%s'...", DB_NAME));
             copyDatabase();
         } catch (IOException e) {
-            throw new IOException("Error updating database '" + DB_NAME + "'");
+            Log.e(TAG_NAME,
+                String.format("Error: cannot update database '%s'", DB_NAME), e);
         }
     }
 
     @SuppressWarnings("unused")
-    private boolean isDatabaseExists()
+    /**
+     * queries existence of database by attempting to open it
+     */
+    private boolean isDatabasePresent()
     {
         try {
             String path = new File(DB_PATH, DB_NAME).getAbsolutePath();
             database = SQLiteDatabase.openDatabase(path, null,
                 SQLiteDatabase.OPEN_READONLY);
         } catch (SQLiteException e) {
-            // database doesn't exist yet
-            e.printStackTrace();
+            Log.e(TAG_NAME, "Error: database not found", e);
+            return false;
         }
 
         if (database != null) {
             database.close();
+            database = null;
         }
 
-        return database != null;
+        return true;
     }
 
     private void copyDatabase()
         throws IOException
     {
-        String outputPath = new File(DB_PATH, DB_NAME).getAbsolutePath();
-
+        File outputFile = new File(DB_PATH, DB_NAME);
+        String outputPath = outputFile.getAbsolutePath();
         Log.d(TAG_NAME,
             String.format("copyDatabase(): %s -> %s", DB_NAME, outputPath));
 
-        InputStream myInput = context.getAssets().open(DB_NAME);
-        OutputStream myOutput = new FileOutputStream(outputPath, false);
-
-        // buffered IO write operation
+        AssetManager assets = context.getAssets();
+        InputStream input = assets.open(DB_NAME, Context.MODE_WORLD_READABLE);
+        DataInputStream dataIO = new DataInputStream(input);
+        FileOutputStream output = new FileOutputStream(outputPath);
         byte[] buffer = new byte[1024];
-        int length;
-        while ((length = myInput.read(buffer)) > 0) {
-            myOutput.write(buffer, 0, length);
+        while (dataIO.read(buffer) != -1) {
+            output.write(buffer);
+        }
+        output.flush();
+
+        // close inputs
+        if (dataIO != null) {
+            dataIO.close();
+            dataIO = null;
+        }
+        if (input != null) {
+            input.close();
+            input = null;
         }
 
-        myOutput.flush();
-        myOutput.close();
-        myInput.close();
-        myOutput = null;
-        myInput = null;
+        // close outputs
+        if (output != null) {
+            output.close();
+            output = null;
+        }
     }
 
-    public synchronized void close()
+    public synchronized void closeDatabase()
     {
         if (database != null) {
             database.close();

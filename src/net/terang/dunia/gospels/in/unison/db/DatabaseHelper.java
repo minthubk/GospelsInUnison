@@ -1,6 +1,5 @@
 package net.terang.dunia.gospels.in.unison.db;
 
-import java.io.*;
 import java.sql.*;
 
 import net.terang.dunia.gospels.in.unison.model.*;
@@ -39,12 +38,8 @@ public class DatabaseHelper
         mContext = context;
 
         initializer = new DatabaseInitializer(mContext);
-        try {
-            initializer.createDatabase();
-            initializer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        initializer.createDatabase();
+        initializer.closeDatabase();
 
         initTocDao();
         initBookDao();

@@ -37,7 +37,6 @@ public class MainActivity
     {
         super.onDestroy();
         System.gc();
-        finish();
     }
 
     /**
