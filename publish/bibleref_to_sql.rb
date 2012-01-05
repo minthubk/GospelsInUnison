@@ -6,54 +6,59 @@ require "pathname"
 require "uri"
 require "pp"
 require "nokogiri"
+require "awesome_print"
+require "json"
 
-REFERENCE   = "Yohanes 19:4-16"
-ITJ_CHAPTER = 55
-$START_NO   = 1
-TOC_URL     = "http://bibledbdata.org/onlinebibles/indonesian_tb/index.htm"
+REFERENCE     = "Kisah Para Rasul 9:1-6"
+ENCLOSING_TAG = "" # valid: nil/b/i for none/bold/italic respectively
+ITJ_CHAPTER   = 59
+$START_NO     = 1
+TOC_URL       = "http://bibledbdata.org/onlinebibles/indonesian_tb/index.htm"
+DEBUG         = false
 
 class Application
   def run()
+    # split up list of references (if multiple), to parse each one in turn
     references = REFERENCE.split(',')
     references.each { |item| parse(item.strip, item != references.last) }
   end
 
+  # break REFERENCE down to sub-components
   def parse(ref, trailingNL)
-    # break REFERENCE down to sub-components
+    # first extra book
+    theBook, ref = ref.scan(/^(Kejadian|Keluaran|Imamat|Bilangan|Ulangan|Yosua|Hakim-Hakim|Rut|1 Samuel|2 Samuel|1 Raja-Raja|2 Raja-Raja|1 Tawarikh|2 Tawarikh|Ezra|Nehemia|Ester|Ayub|Mazmur|Amsal|Pengkhotbah|Kidung Agung|Yesaya|Yeremia|Ratapan|Yehezkiel|Daniel|Hosea|Yoel|Amos|Obaja|Yunus|Mikha|Nahum|Habakuk|Zefanya|Hagai|Zakharia|Maleakhi|Matius|Markus|Lukas|Yohanes|Kisah Para Rasul|Roma|1 Korintus|2 Korintus|Galatia|Efesus|Filipi|Kolose|1 Tesalonika|2 Tesalonika|1 Timotius|2 Timotius|Titus|Filemon|Ibrani|Yakobus|1 Petrus|2 Petrus|1 Yohanes|2 Yohanes|I2 Yohanes|Yudas|Wahyu)\s(.*)/i).flatten
 
     # format across chapters
-    reference = ref.scan(/(\D+)\s(\d+):(\d+)-(\d+):(\d+)/).flatten
-    theBook, start_chapter, start_verse, end_chapter, end_verse = reference
-    
-    if !theBook.nil?
+    start_chapter, start_verse, end_chapter, end_verse \
+      = ref.scan(/(\d+):(\d+)-(\d+):(\d+)/).flatten
+
+    unless start_chapter.nil?
       if Integer(start_chapter) > Integer(end_chapter)
         raise "Error in chapter range"
       end
 
+      # loop for each chapter
       chapter = Integer(start_chapter)
       begin
         runOnce(true, true, theBook, chapter.to_s, start_verse, getEndChapter(theBook, chapter))
         chapter += 1
       end while chapter < Integer(end_chapter)
-
       runOnce(true, trailingNL, theBook, end_chapter, 1, end_verse)
+
       return
     end
 
-    if theBook.nil?
+    if start_chapter.nil?
       # format range within a chapter
-      reference = ref.scan(/(\D+)\s(\d+):(\d+)-(\d+)/).flatten
-      theBook, chapter, start_verse, end_verse = reference
-      if Integer(start_verse) > Integer(end_verse)
+      chapter, start_verse, end_verse = ref.scan(/(\d+):(\d+)-(\d+)/).flatten
+
+      if end_verse.nil?
+        # format single verse
+        chapter, start_verse = ref.scan(/(\d+):(\d+)/).flatten
+        end_verse = start_verse
+      elsif Integer(start_verse) > Integer(end_verse)
         raise "Error in verse range"
       end
-    end
-    
-    if theBook.nil?
-      # format single verse
-      reference = ref.scan(/(\D+)\s(\d+):(\d+)/).flatten
-      theBook, chapter, start_verse = reference
-      end_verse = start_verse
     end
 
     runOnce(true, trailingNL, theBook, chapter, start_verse, end_verse)
@@ -66,9 +71,9 @@ class Application
     res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
 
     # DEBUG
-    if $DEBUG
+    if DEBUG
       books = res.body.gsub("\n", "").scan(/<br><br>([^\[]+)\s+?\[/).flatten
-      ap books.index theBook.upcase
+      ap [ books.index(theBook.upcase), theBook ]
     end
 
     # parse TOC for book
@@ -89,13 +94,16 @@ class Application
       start_no += 1
     end
 
+    start_tag = (ENCLOSING_TAG.empty? && "") || "<#{ENCLOSING_TAG}>"
+    end_tag = (ENCLOSING_TAG.empty? && "") || "</#{ENCLOSING_TAG}>"
+
     # content
     verses.each do |line|
-      puts "INSERT INTO book ('chapter', 'verse', 'content') VALUES(#{ITJ_CHAPTER}, #{start_no}, '#{line[(line.index(':')+1)..-1].gsub("<br>","")}');"
+      puts "INSERT INTO book ('chapter', 'verse', 'content') VALUES(#{ITJ_CHAPTER}, #{start_no}, '#{start_tag}#{line[(line.index(':')+1)..-1].gsub("<br>","")}#{end_tag}');"
       start_no += 1
     end
 
-    if footer
+    if false #footer
       puts "INSERT INTO book ('chapter', 'verse', 'content') VALUES(#{ITJ_CHAPTER}, #{start_no}, '');"
       start_no += 1
     end
