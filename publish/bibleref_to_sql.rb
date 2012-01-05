@@ -7,8 +7,8 @@ require "uri"
 require "pp"
 require "nokogiri"
 
-REFERENCE   = "Yohanes 13:27-35"
-ITJ_CHAPTER = 54
+REFERENCE   = "Yohanes 19:4-16"
+ITJ_CHAPTER = 55
 $START_NO   = 1
 TOC_URL     = "http://bibledbdata.org/onlinebibles/indonesian_tb/index.htm"
 
