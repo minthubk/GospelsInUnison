@@ -38,7 +38,7 @@ public class DatabaseHelper
         mContext = context;
 
         initializer = new DatabaseInitializer(mContext);
-        initializer.createDatabase();
+        initializer.createDatabase(this);
         initializer.closeDatabase();
 
         initTocDao();
@@ -145,7 +145,6 @@ public class DatabaseHelper
     }
 
     /** for unit testing purposes */
-
     // private void fillDatabaseWithDummyData() {
     // final ScheduleActivityRepo activityService = new
     // ScheduleActivityRepo(mContext);

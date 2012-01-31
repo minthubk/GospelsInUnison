@@ -10,7 +10,6 @@ import android.util.*;
  */
 public class DimensionCalculator
 {
-
     private static DimensionCalculator mInstance = null;
     private final int mScreenWidth;
     private final int mTileWidth;
